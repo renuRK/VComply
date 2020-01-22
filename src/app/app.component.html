@@ -1,0 +1,156 @@
+<div class="container">
+  <div>
+    <ul class="nav">
+      <li class="nav-item">
+        <a class="nav-link " href="#" (click)="dailyFrequecy()">DAILY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="weeklyFrequecy()">WEEKLY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link" href="#" (click)="montlyFrequecy()">MONTHLY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#">QUARTERLY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#" (click)="yearlyFrequecy()">YEARLY</a>
+      </li>
+      <li class="nav-item">
+        <a class="nav-link " href="#" (click)="oneTimeFrequecy()">ONE TIME</a>
+      </li> <li class="nav-item">
+        <a class="nav-link " href="#" (click)="onCompletionOfFrequecy()">ON COMPLETION OF</a>
+      </li>
+    </ul>
+  </div>
+  <form>
+    <div class="row">
+      <div class="col-sm-12">
+        <div class="form-group">
+          <div class="input-group">
+            <input type="text" class="form-control" placeholder="yyyy-mm-dd" name="startDate" [(ngModel)]="model" ngbDatepicker #sd="ngbDatepicker">
+            <div class="input-group-append">
+              <button class="btn btn-outline-secondary calendar" (click)="sd.toggle()" type="button">
+                <div class="input-group-prepend departDateIcon">
+                  <span class="input-group-text" id="basic-addon1"> <i class="fas fa-calendar-alt"></i></span>
+                </div>
+              </button>
+            </div>
+          </div>
+        </div>
+      </div>
+    </div>
+    <div *ngIf="weekly_frequency">
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Monday" name="Monday" #Monday="ngModel" id="monday" >Mon
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Tuesday" name="Tuesday" #Tuesday="ngModel" id="Tuesday" >Tue
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Wednesday" name="Wednesday" #Wednesday="ngModel" id="Wednesday" >Wen
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Thursday" name="Thursday" #Thursday="ngModel" id="Thursday" >Thu
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Friday" name="Friday" #Friday="ngModel" id="Friday" >Fri
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Satarday" name="Satarday" #Satarday="ngModel" id="Satarday" >Sat
+      <input type="checkbox" [(ngModel)]="selectedWeekDayNames.Sunday" name="Sunday" #Sunday="ngModel" id="Sunday" >Sun
+    </div>
+    <div *ngIf="monthly_frequency">
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Jan" name="Jan" #Jan="ngModel" id="Jan">Jan
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Feb" name="Feb" #Feb="ngModel" id="Feb" >Feb
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Mar" name="Mar" #Mar="ngModel" id="Mar" >Mar
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Apr" name="Apr" #Apr="ngModel" id="Apr" >Apr
+      <input type="checkbox" [(ngModel)]="selectedMonthName.May" name="May" #May="ngModel" id="May" >May
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Jun" name="Jun" #Jun="ngModel" id="Jun" >Jun
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Jul" name="Jul" #Jul="ngModel" id="Jul" >Jul
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Aug" name="Aug" #Aug="ngModel" id="Aug" >Aug
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Sep" name="Sep" #Sep="ngModel" id="Sep" >Sep
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Oct" name="Oct" #Jul="ngModel" id="Oct" >Oct
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Nov" name="Nov" #Nov="ngModel" id="Nov" >Nov
+      <input type="checkbox" [(ngModel)]="selectedMonthName.Dec" name="Dec" #Dec="ngModel" id="Dec" >Dec
+    </div>
+    <div *ngIf="yearly_frequecy">
+      <div *ngFor="let monthObj of list_of_month;let i=index">
+        <input type="radio" class="form-inline" [(ngModel)]="choosedMonth" name="monthName"  [value]="monthObj">
+         {{monthObj}}
+      </div>
+    </div>
+    <div class="row">
+      <div class="col-sm-3">
+        <label>End By</label>
+      </div>
+      <div class="col-sm-3">
+        <label>Ends After</label>
+      </div>
+      <div class="col-sm-4">
+        <label>On Going</label>
+      </div>
+    </div>
+    <div class="form-inline">
+      <div class="row ">
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-append">
+                <input type="radio" class="form-control" [(ngModel)]="endDateOption"  name="CompletionDate"  value="dateOfCompletion" [checked]="on_completion_frequecy==true">
+                <input type="text" class="form-control" placeholder="yyyy-mm-dd" #endDate="ngModel" name="endDate" [(ngModel)]="EndByDate" ngbDatepicker #end="ngbDatepicker"  >
+                <div class="">
+                  <button class="btn btn-outline-secondary calendar" (click)="end.toggle()" type="button">
+                    <div class="input-group-prepend departDateIcon">
+                      <span class="input-group-text" id="basic-addon1"> <i class="fas fa-calendar-alt"></i></span>
+                    </div>
+                  </button>
+                </div>
+              </div>
+            </div>
+          </div>
+        </div>
+        <div class="col-sm-4">
+          <div class="form-group">
+            <div class="input-group">
+              <div class="input-group-append">
+                <input type="radio" class="form-control" [(ngModel)]="endDateOption"  name="CompletionDate"  value="no_of_occurance" [checked]="weekly_frequency==true" >
+                <input type="text" class="form-control" name="occurenceTimes"  [value]="occuranceTimes" >
+              </div>
+            </div>
+          </div>
+      </div>
+      <div class="col-sm-4">
+        <div class="form-group">
+          <div class="input-group">
+            <div class="input-group-append">
+              <input type="radio" class="form-control" [(ngModel)]="endDateOption" name="CompletionDate"  value="dueDateStatus" [checked]="daily_frequecy==true || monthly_frequency==true || yearly_frequecy==true">
+              <input type="text"  class="form-control" name="msg" [value]="message" readonly >
+            </div>
+          </div>
+        </div>
+      </div>
+      </div>
+    </div>
+    <div *ngIf="weekly_frequency">
+      <button type="button"  (click)="weeklyGeneratedDate()">Weekly generated date</button>
+      <h2>Weekly generated due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+    <div *ngIf="monthly_frequency">
+      <button type="button"  (click)="monthlyGeneratedDate()">Monthly generated date</button>
+      <h2>Monthly generated due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+    <div *ngIf="daily_frequecy">
+      <button type="button"  (click)="dailyGeneratedDate()">generate  daily due date</button>
+      <h2>Daily generated due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+    <div *ngIf="yearly_frequecy">
+      <button type="button"  (click)="yearlyGeneratedDate()">generate  yealy due date</button>
+      <h2>Yearly generated due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+    <div *ngIf="on_completion_frequecy">
+      <button type="button"  (click)="generatedCompletionDueDate()">Completion due date</button>
+      <h2>Completion due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+    <div *ngIf="one_time_frequecy">
+      <button type="button"  (click)="oneTimeDueDate()">One time due date</button>
+      <h2>One time generated due date</h2>
+      <div *ngFor="let dueDateList of dateArray">{{dueDateList}}</div>
+    </div>
+  </form>
+</div>
+<router-outlet></router-outlet>
